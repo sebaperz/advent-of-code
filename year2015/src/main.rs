@@ -1,3 +1,5 @@
+use std::io::LineWriter;
+
 fn day1(text: String) -> isize {
     // let up = text.chars().filter(|&c| c == '(').count();
     // let down = text.chars().filter(|&c| c == ')').count();
@@ -45,6 +47,17 @@ fn day2(text: &str) {
         let slack = ((line[0] * line[1]).min(line[0] * line[2])).min(line[1] * line[2]);
         let area = (2 * line[0] * line[1]) + (2 * line[0] * line[2]) + (2 * line[1] * line[2]);
         sum += area + slack;
+    }
+    println!("{}", sum)
+}
+fn day2_star(text: &str) {
+    let mut sum = 0;
+    for line in text.lines() {
+        let mut line: Vec<_> = line.split('x').map(|s| s.parse::<u32>().unwrap()).collect();
+        line.sort();
+        let ribbon = 2 * (line[0] + line[1]);
+        let bow = line[0] * line[1] * line[2];
+        sum += ribbon + bow;
     }
     println!("{}", sum)
 }
@@ -1050,5 +1063,5 @@ fn main() {
 29x4x8
 21x2x22
 14x12x8";
-    day2(test);
+    day2_star(test);
 }
